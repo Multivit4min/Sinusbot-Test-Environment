@@ -8,6 +8,9 @@ export class Client extends SinusbotModule {
     return {
       isSelf() {
         return client.self
+      },
+      chat(message: string) {
+        console.log("client#chat()", message)
       }
     }
   }
