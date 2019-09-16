@@ -1,6 +1,6 @@
 import { SinusbotModule } from "./Abstract"
 
-export default class Format extends SinusbotModule {
+export class Format extends SinusbotModule {
 
   buildModule() {
     const format = this

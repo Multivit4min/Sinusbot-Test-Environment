@@ -1,6 +1,6 @@
 import { SinusbotModule } from "./Abstract"
 
-export default class Engine extends SinusbotModule {
+export class Engine extends SinusbotModule {
 
   backend: string = "ts3"
   commandprefix: string = ""

@@ -1,1 +1,1 @@
-export declare function configure(config?: Record<string, any>, meta?: Record<string, any>): (header: Record<string, any> | undefined, handler: Function) => void;
+export declare function configure(config?: Record<string, any>): (meta: Record<string, any>, handler: Function) => void;

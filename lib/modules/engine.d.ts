@@ -1,4 +1,5 @@
-export default class Engine {
+import { SinusbotModule } from "./Abstract";
+export declare class Engine extends SinusbotModule {
     backend: string;
     commandprefix: string;
     /**
@@ -16,5 +17,6 @@ export default class Engine {
     buildModule(): {
         getBackend(): string;
         getCommandPrefix(): string;
+        log(...data: any[]): void;
     };
 }

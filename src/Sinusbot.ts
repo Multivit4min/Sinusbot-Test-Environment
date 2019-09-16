@@ -1,31 +1,31 @@
 import * as vm from "vm"
 import * as registerPlugin from "./globals/registerPlugin"
 import * as sinusRequire from "./globals/require"
-import Engine from "./modules/engine"
-import Event from "./modules/event"
-import Backend from "./modules/backend"
-import Format from "./modules/format"
+import { Engine } from "./modules/engine"
+import { Event } from "./modules/event"
+import { Backend } from "./modules/backend"
+import { Format } from "./modules/format"
 import { Client } from "./modules/interface/Client"
+import { Channel } from "./modules/interface/Channel"
 
 export class Sinusbot {
 
-  modules: Sinusbot.ModuleInterface = Sinusbot.createModules()
   config: Record<string, any> = {}
   script: string = ""
   context: Record<string, any> = {}
+  engine = new Engine()
+  backend = new Backend()
+  event = new Event()
+  format = new Format()
 
   static createClient() {
     const client = new Client()
     return client
   }
 
-  static createModules(): Sinusbot.ModuleInterface {
-    return {
-      engine: new Engine(),
-      backend: new Backend(),
-      event: new Event(),
-      format: new Format()
-    }
+  static createChannel() {
+    const channel = new Channel()
+    return channel
   }
 
   /**
@@ -89,34 +89,23 @@ export class Sinusbot {
    * retrieve used modules
    */
   private getModules()  {
-    const modules: Record<string, Record<string, Function>> = {}
-    Object.keys(this.modules)
-      //@ts-ignore
-      .map(name => modules[name] = this.modules[name].buildModule())
-    return modules
+    return {
+      event: this.event.buildModule(),
+      backend: this.backend.buildModule(),
+      engine: this.engine.buildModule(),
+      format: this.format.buildModule()
+    }
   }
 
   /**
    * runs the current script
+   * @returns the exported values from the script
    */
-  run() {
+  run(): any {
     this.prepareContext()
     const context = vm.createContext(this.context)
     vm.runInContext(this.script, context)
-
-    context.module.exports
-      .createCommand("test")
-      .addAlias("test1")
-      .exec((...args: any[]) => {
-        console.log({ args })
-        console.log("executed... with alias")
-      })
-
-    this.modules.event.emit("chat", {
-      text: "!test1",
-      client: Sinusbot.createClient().buildModule()
-    })
-
+    return context.modules.exports
   }
 }
 

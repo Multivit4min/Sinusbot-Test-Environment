@@ -1,6 +1,6 @@
 import { SinusbotModule } from "./Abstract"
 
-export default class Backend extends SinusbotModule {
+export class Backend extends SinusbotModule {
 
   buildModule() {
     const backend = this
