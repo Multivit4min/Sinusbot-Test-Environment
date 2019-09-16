@@ -37,8 +37,6 @@ export declare class Sinusbot {
      * Prepares the global variables for use
      */
     private prepareContext;
-    /** retrieves the module namespace */
-    private getModuleNamespace;
     /**
      * retrieve used modules
      */

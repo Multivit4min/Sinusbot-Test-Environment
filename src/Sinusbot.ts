@@ -74,15 +74,8 @@ export class Sinusbot {
     this.addToContext({
       registerPlugin: register,
       require: req,
-      module: this.getModuleNamespace()
+      module: { exports: null }
     })
-  }
-
-  /** retrieves the module namespace */
-  private getModuleNamespace() {
-    return {
-      "exports": null 
-    }
   }
 
   /**
@@ -105,7 +98,7 @@ export class Sinusbot {
     this.prepareContext()
     const context = vm.createContext(this.context)
     vm.runInContext(this.script, context)
-    return context.modules.exports
+    return context.module.exports
   }
 }
 
