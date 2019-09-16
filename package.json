@@ -1,0 +1,17 @@
+{
+  "name": "sinusbot-mock",
+  "version": "1.0.0",
+  "description": "library to mock sinusbot scripting engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "Multivitamin <david.kartnaller@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.7.5",
+    "ts-node": "^8.4.0",
+    "typescript": "^3.6.3"
+  }
+}
