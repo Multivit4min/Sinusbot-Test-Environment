@@ -2,6 +2,7 @@ import { SinusbotModule } from "../Abstract"
 
 export class Client extends SinusbotModule {
   self: boolean = false
+  chatMock = (msg: string) => console.log("client#chat()", msg)
 
   buildModule() {
     const client = this
@@ -10,7 +11,7 @@ export class Client extends SinusbotModule {
         return client.self
       },
       chat(message: string) {
-        console.log("client#chat()", message)
+        return client.chatMock(message)
       }
     }
   }
