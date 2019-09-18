@@ -13,18 +13,18 @@ export class Sinusbot {
   config: Record<string, any> = {}
   script: string = ""
   context: Record<string, any> = {}
-  engine = new Engine()
-  backend = new Backend()
-  event = new Event()
-  format = new Format()
+  engine = new Engine(this)
+  backend = new Backend(this)
+  event = new Event(this)
+  format = new Format(this)
 
-  static createClient() {
-    const client = new Client()
+  createClient() {
+    const client = new Client(this)
     return client
   }
 
-  static createChannel() {
-    const channel = new Channel()
+  createChannel() {
+    const channel = new Channel(this)
     return channel
   }
 

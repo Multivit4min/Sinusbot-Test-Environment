@@ -1,7 +1,4 @@
 import { SinusbotModule } from "./Abstract"
-import { Sinusbot } from "../Sinusbot"
-import { Client } from "./interface/Client"
-import { Channel } from "./interface/Channel"
 
 export interface Event {
   emit(name: "chat", data: Event.ChatTarget): void
@@ -12,6 +9,7 @@ export class Event extends SinusbotModule {
   eventHandler: Record<string, Function[]> = {}
 
   /**
+   * emits an event to the scripting engine
    * @param {string} backend the backend which should be retrieved
    */
   emit(event: string, data: any) {
@@ -20,16 +18,21 @@ export class Event extends SinusbotModule {
     return this
   }
 
+  /**
+   * emits a chat event to the sinusbot scripting engine
+   * @param data the payload data for the event
+   */
   chat(data: Partial<Event.Chat>) {
     this.emit("chat", {
       mode: Event.ChatTarget.PRIVATE,
       text: "",
-      client: Sinusbot.createClient().buildModule(),
-      channel: Sinusbot.createChannel().buildModule(),
+      client: this.sinusbot.createClient().buildModule(),
+      channel: this.sinusbot.createChannel().buildModule(),
       ...data
     })
   }
 
+  /** registers a new event handler */
   addHandler(event: string, callback: Function) {
     if (!Array.isArray(this.eventHandler[event]))
       this.eventHandler[event] = []

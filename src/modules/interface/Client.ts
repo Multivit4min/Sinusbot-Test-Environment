@@ -1,8 +1,11 @@
 import { SinusbotModule } from "../Abstract"
 
 export class Client extends SinusbotModule {
+
+  /** output of client.isSelf() */
   self: boolean = false
-  chatMock = (msg: string) => console.log("client#chat()", msg)
+  /** function for client.chat() */
+  chatMock = this.logFunctionCall("chat")
 
   buildModule() {
     const client = this
